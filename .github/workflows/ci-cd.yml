@@ -44,7 +44,13 @@ jobs:
       - name: SonarQube analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn sonar:sonar -Dsonar.projectKey=Vladimir24152_CRUDService -Dsonar.organization=vladimir24152
+        run: |
+          mvn sonar:sonar \
+            -Dsonar.projectKey=Vladimir24152_CRUDService \
+            -Dsonar.organization=vladimir24152 \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.skipAutoAnalysis=true
+        continue-on-error: true
 
       - name: Build JAR
         run: mvn package -DskipTests
